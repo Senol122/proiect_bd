@@ -5,7 +5,55 @@ import Button from 'react-bootstrap/Button';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import {useState} from 'react';
 import Axios from 'axios';
+import _ from 'lodash';
 
+function Tabel(set) {
+  const [nume, setNume] = useState('');
+  const [prenume, setPrenume] = useState('');
+  const [adresa, setAdresa] = useState('');
+  console.log("HAHA");
+  console.log(set);
+  if(_.isEqual(set.set, "donator")) {
+    console.log("Am intrat in conditie lol");
+    return (
+      <div id="card1" className=" mt-5 mb-5">
+        <Form>
+          <FormGroup>
+          <div className="row mb-3">
+            <label className="col-sm-2 col-form-label">Nume:</label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control" placeholder="Introduceți numele..." onChange={(event) => {setNume(event.target.value);
+              }}/>
+            </div>
+          </div>
+          <div className="row mb-3">
+            <label className="col-sm-2 col-form-label">Prenume:</label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control" placeholder="Introduceți prenumele..." onChange={(event) => {setPrenume(event.target.value);
+              }}/>
+            </div>
+          </div>
+          <div className="row mb-3">
+            <label className="col-sm-2 col-form-label">Adresa:</label>
+            <div className="col-sm-10">
+              <input type="text" className="form-control" placeholder="Introduceți adresa..." onChange={(event) => {setAdresa(event.target.value);
+              }}/>
+            </div>
+          </div>
+          </FormGroup>
+        </Form>
+        <Button>
+          Înregistrare donator
+        </Button>
+      </div>
+    );
+  }
+  return (
+    <div>
+      Hi!
+    </div>
+  );
+}
 function App() {
   const [nume, setNume] = useState('');
   const [prenume, setPrenume] = useState('');
@@ -17,6 +65,8 @@ function App() {
 
   const [tabel, setTabel] = useState('');
 
+  const [link, setLink] = useState('');
+  
   // const addDonator = () => {
   //   Axios.post('http://localhost:3001/create', 
   //   {nume: nume,
@@ -28,7 +78,11 @@ function App() {
   // }
 
   // const getDonator = () => {
-  //   Axios.get('http://localhost:3001/donatori').then((response) => {
+  //    if(tabel === "nume") {
+  //    setLink('http://localhost:3001/donatori');
+  //    }
+  //    
+  //   Axios.get(link).then((response) => {
   //     setDonatorList(response.data);
   //   })
   // }
@@ -63,8 +117,6 @@ function App() {
       <Container className="p-3">
         <div id="card1" className=" mt-5 mb-5">
           <div className="formular">
-            <Form>
-              <FormGroup>
                 <h3>Dashboard</h3>
                 <div className="row mb-3">
                   <label className="col-sm-2 col-form-label">Tabel:</label>
@@ -72,6 +124,7 @@ function App() {
                     <select className="form-select" onChange={(event) => {
                       setTabel(event.target.value);
                       console.log(event.target.value);
+                      <Tabel set={event.target.value}></Tabel>
                     }}>
                       <option selected>Alege tabelul</option>
                       <option value="centru_transfuzie_sanguina">Centru transfuzie sanguina</option>
@@ -90,38 +143,10 @@ function App() {
                     </select>
                   </div>
                 </div>
-              </FormGroup>
-            </Form>
           </div>
-          <Form>
-            <FormGroup>
-            <div className="row mb-3">
-              <label className="col-sm-2 col-form-label">Nume:</label>
-              <div className="col-sm-10">
-                <input type="text" className="form-control" placeholder="Introduceți numele..." onChange={(event) => {setNume(event.target.value);
-                }}/>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <label className="col-sm-2 col-form-label">Prenume:</label>
-              <div className="col-sm-10">
-                <input type="text" className="form-control" placeholder="Introduceți prenumele..." onChange={(event) => {setPrenume(event.target.value);
-                }}/>
-              </div>
-            </div>
-            <div className="row mb-3">
-              <label className="col-sm-2 col-form-label">Adresa:</label>
-              <div className="col-sm-10">
-                <input type="text" className="form-control" placeholder="Introduceți adresa..." onChange={(event) => {setAdresa(event.target.value);
-                }}/>
-              </div>
-            </div>
-            </FormGroup>
-          </Form>
-          <Button>
-            Înregistrare donator
-          </Button>
+        <Tabel set={tabel}></Tabel>
         </div>
+        
         <div id="card2" className="mt-5">
           <Button>
             Afișare donatori
